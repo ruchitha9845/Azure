@@ -1,0 +1,26 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool: mypool
+  #vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    cat test.txt
+    num_characters=$(wc -c < test.txt)
+    if [ "$num_characters" -lt 100 ]; then
+      echo "Number of characters is correct ($num_characters)."
+    else
+      echo "Number of characters is incorrect. Expected: 100, Actual: $num_characters"
+      exit 1  # Fail the pipeline if the count is incorrect
+    fi
+  displayName: 'Run a multi-line script'
