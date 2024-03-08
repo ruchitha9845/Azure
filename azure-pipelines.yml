@@ -15,8 +15,8 @@ steps:
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
-    cat test.txt
-    num_characters=$(wc -c < test.txt)
+    cat readme.txt
+    num_characters=$(wc -c < readme.txt)
     if [ "$num_characters" -lt 100 ]; then
       echo "Number of characters is correct ($num_characters)."
     else
