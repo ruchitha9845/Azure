@@ -14,7 +14,7 @@ steps:
     # PostgreSQL connection details
     host="localhost"
     port="5432"
-    database="testDB"
+    database="testdb"
     user="root"
     password="root"
 
