@@ -24,3 +24,11 @@ steps:
       exit 1  # Fail the pipeline if the count is incorrect
     fi
   displayName: 'Run a multi-line script'
+  
+- script: |
+    echo "Connecting to MySQL database..."
+    mysql -h <hostname> -u $(MYSQL_USERNAME) -p$(MYSQL_PASSWORD) -D <database_name> -e "SELECT * FROM <table_name>"
+  displayName: 'Connect to MySQL Database'
+  env:
+    MYSQL_USERNAME: $(MYSQL_USERNAME)
+    MYSQL_PASSWORD: $(MYSQL_PASSWORD)
