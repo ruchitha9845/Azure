@@ -13,21 +13,27 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    cat readme.txt
-    num_characters=$(wc -c < readme.txt)
-    if [ "$num_characters" -lt 100 ]; then
-      echo "Number of characters is correct ($num_characters)."
-    else
-      echo "Number of characters is incorrect. Expected: 100, Actual: $num_characters"
-      exit 1  # Fail the pipeline if the count is incorrect
-    fi
-  displayName: 'Run a multi-line script'
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     cat readme.txt
+#     num_characters=$(wc -c < readme.txt)
+#     if [ "$num_characters" -lt 100 ]; then
+#       echo "Number of characters is correct ($num_characters)."
+#     else
+#       echo "Number of characters is incorrect. Expected: 100, Actual: $num_characters"
+#       exit 1  # Fail the pipeline if the count is incorrect
+#     fi
+#   displayName: 'Run a multi-line script'
   
+# - script: |
+#     echo "Connecting to MySQL database..."
+#   displayName: 'Connect to MySQL Database'
+
 - script: |
     echo "Connecting to MySQL database..."
+    mysql -h TEST-DB-TSTA.0487.P2.TUT.R53.CD2.BP.COM -u SQL_RARG2S -pL#GGFGFY5 -D EPSCLDTSTA -e "SELECT * FROM CURVE_DEFINITIONS WHERE curve_num in (5813)"
   displayName: 'Connect to MySQL Database'
+  
   #env:
     #MYSQL_USERNAME: $(MYSQL_USERNAME)
     #MYSQL_PASSWORD: $(MYSQL_PASSWORD)
