@@ -37,22 +37,45 @@ steps:
 #   displayName: 'Connect to MySQL Database'
 
 - script: |
-    echo "Connecting to Oracle database..."
-    $host = "EPSILON-DB-TSTA.0487.P2.WU2.R53.CD2.BP.COM"
-    $port = "1521"  # Default port for Oracle
-    $service = "EPSCLDTSTA"
-    $user = "SQL_RARG2S"
-    $password = "L#Bgtw8WVHg8a6Z"
-    $query = "SELECT * FROM CURVE_DEFINITIONS WHERE curve_num in (5813);"
+    # echo "Connecting to Oracle database..."
+    # $host = "EPSILON-DB-TSTA.0487.P2.WU2.R53.CD2.BP.COM"
+    # $port = "1521"  # Default port for Oracle
+    # $service = "EPSCLDTSTA"
+    # $user = "SQL_RARG2S"
+    # $password = "L#Bgtw8WVHg8a6Z"
+    # $query = "SELECT * FROM CURVE_DEFINITIONS WHERE curve_num in (5813);"
 
-    # Construct SQL*Plus command
-    $sqlplusCommand = "sqlplus $user/$password@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=$host)(PORT=$port))(CONNECT_DATA=(SERVICE_NAME=$service))) <<EOF `"$query`"; exit; EOF"
+    # # Construct SQL*Plus command
+    # $sqlplusCommand = "sqlplus $user/$password@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=$host)(PORT=$port))(CONNECT_DATA=(SERVICE_NAME=$service))) <<EOF `"$query`"; exit; EOF"
 
-    # Execute SQL*Plus command and capture output
-    $output = Invoke-Expression -Command $sqlplusCommand
+    # # Execute SQL*Plus command and capture output
+    # $output = Invoke-Expression -Command $sqlplusCommand
 
-    # Print the output
-    Write-Output $output
+    # # Print the output
+    # Write-Output $output
+    @echo off
+
+    echo Connecting to Oracle database...
+    
+    set host=EPSILON-DB-TSTA.0487.P2.WU2.R53.CD2.BP.COM
+    set port=1521
+    set service=EPSCLDTSTA
+    set user=SQL_RARG2S
+    set password=L#Bgtw8WVHg8a6Z
+    set query=SELECT * FROM CURVE_DEFINITIONS WHERE curve_num in (5813)
+    
+    REM Construct SQL*Plus command
+    set sqlplusCommand=sqlplus %user%/%password%@//%host%:%port%/%service% @query.sql
+    
+    REM Create a temporary SQL file for the query
+    echo %query% > query.sql
+    
+    REM Execute SQL*Plus command
+    %sqlplusCommand%
+    
+    REM Delete temporary SQL file
+    del query.sql
+
   displayName: 'Connect to Oracle Database'
 
   #env:
