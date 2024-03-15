@@ -13,8 +13,7 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
- - script: |
-
+- script: |
     echo Connecting to Oracle database...
     
     set host=EPSILON-DB-TSTA.0487.P2.WU2.R53.CD2.BP.COM
