@@ -1,0 +1,33 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo "Connecting to PostgreSQL database..."
+
+    # PostgreSQL connection details
+    host="localhost"
+    port="5432"
+    database="testDB"
+    user="root"
+    password="root"
+
+    # Construct connection string
+    connectionString="postgresql://$user:$password@$host:$port/$database"
+
+    # Query to fetch data from books table
+    query="SELECT * FROM books;"
+
+    # Execute query
+    result=$(psql "$connectionString" -c "$query")
+
+    # Display query result
+    echo "Query Result:"
+    echo "$result"
+  displayName: 'Connect to PostgreSQL and fetch data from books'
