@@ -30,26 +30,31 @@ steps:
 #   displayName: 'Connect to MySQL Database'
 
 
+steps:
+# - script: |
+#     echo "Connecting to MySQL database..."
+#     mysql -h EPSILON-DB-TSTA.0487.P2.WU2.R53.CD2.BP.COM -u SQL_RARG2S -pL#Bgtw8WVHg8a6Z -D EPSCLDTSTA -e "SELECT * FROM CURVE_DEFINITIONS WHERE curve_num in (5813)"
+#   displayName: 'Connect to MySQL Database'
+
 - script: |
     echo "Connecting to Oracle database..."
-# mysql -h EPSILON-DB-TSTA.0487.P2.WU2.R53.CD2.BP.COM -u SQL_RARG2S -p L#Bgtw8WVHg8a6Z -D EPSCLDTSTA -e "SELECT * FROM CURVE_DEFINITIONS WHERE curve_num in (5813)"
+    $host = "EPSILON-DB-TSTA.0487.P2.WU2.R53.CD2.BP.COM"
+    $port = "1521"  # Default port for Oracle
+    $service = "EPSCLDTSTA"
+    $user = "SQL_RARG2S"
+    $password = "L#Bgtw8WVHg8a6Z"
+    $query = "SELECT * FROM CURVE_DEFINITIONS WHERE curve_num in (5813);"
+
+    # Construct SQL*Plus command
+    $sqlplusCommand = "sqlplus $user/$password@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=$host)(PORT=$port))(CONNECT_DATA=(SERVICE_NAME=$service))) <<EOF `"$query`"; exit; EOF"
+
+    # Execute SQL*Plus command and capture output
+    $output = Invoke-Expression -Command $sqlplusCommand
+
+    # Print the output
+    Write-Output $output
   displayName: 'Connect to Oracle Database'
-  $host = "EPSILON-DB-TSTA.0487.P2.WU2.R53.CD2.BP.COM"
-  $port = "1521"  # Default port for Oracle
-  $service = "EPSCLDTSTA"
-  $user = "SQL_RARG2S"
-  $password = "L#Bgtw8WVHg8a6Z"
-  $query = "SELECT * FROM CURVE_DEFINITIONS WHERE curve_num in (5813);"
 
-# Construct SQL*Plus command
-$sqlplusCommand = "sqlplus $user/$password@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=$host)(PORT=$port))(CONNECT_DATA=(SERVICE_NAME=$service))) <<EOF `"$query`"; exit; EOF"
-
-# Execute SQL*Plus command
-#Invoke-Expression -Command $sqlplusCommand
-$output = Invoke-Expression -Command $sqlplusCommand
-
-# Print the output
-Write-Output $output
   #env:
     #MYSQL_USERNAME: $(MYSQL_USERNAME)
     #MYSQL_PASSWORD: $(MYSQL_PASSWORD)
