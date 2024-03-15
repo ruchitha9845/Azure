@@ -27,7 +27,6 @@ steps:
   
 - script: |
     echo "Connecting to MySQL database..."
-    mysql -h EPSILON-DB-TSTA.0487.P2.WU2.R53.CD2.BP.COM -u SQL_RARG2S -p L#Bgtw8WVHg8a6Z -D EPSCLDTSTA -e "SELECT * FROM CURVE_DEFINITIONS WHERE curve_num in (5813)"
   displayName: 'Connect to MySQL Database'
   #env:
     #MYSQL_USERNAME: $(MYSQL_USERNAME)
